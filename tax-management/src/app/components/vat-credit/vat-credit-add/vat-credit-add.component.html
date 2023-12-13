@@ -1,14 +1,64 @@
 
-zz
-<input type="file" class="file-input"
-       (change)="onFileSelected($event)" #fileUpload>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Take a Picture
+        </div>
+        <div class="card-body">
+          <!-- Camera -->
+          <webcam
+            [height]="320"
+            [width]="240"
+            (imageCapture)="handleImageCapture($event)"
+            (cameraSwitched)="handleCameraSwitch($event)"
+            (initError)="handleInitError($event)"
+          ></webcam>
+          <!-- Form -->
+          <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+            <div class="form-group mt-3">
+              <label for="image">Captured Image:</label>
+              <img
+                *ngIf="capturedImage"
+                [src]="capturedImage.imageAsDataUrl"
+                alt="Captured Image"
+                class="img-fluid"
+              />
+            </div>
 
-<div class="file-upload">
+            <div class="form-group mt-3">
+              <label for="price">Price:</label>
+              <input type="number" />
+            </div>
 
-  {{fileName || "No file uploaded yet."}}
+            <div class="form-group mt-3">
+              <label for="date">Date:</label>
+              <input type="date" />
+            </div>
 
-  <button mat-mini-fab color="primary" class="upload-btn"
-          (click)="fileUpload.click()">
-    <mat-icon>attach_file</mat-icon>
-  </button>
+            <div class="form-group mt-3">
+              <label for="category">Category:</label>
+              <select>
+                <option></option>
+                <option>ESSENCE</option>
+                <option>ELECTRICITE</option>
+                <option>REPAS</option>
+                <option>INTERNET</option>
+                <option>TELEPHONE</option>
+                <option>AUTRE</option>
+              </select>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="categoryExplanation">Category Explanation:</label>
+              <input type="text" />
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
