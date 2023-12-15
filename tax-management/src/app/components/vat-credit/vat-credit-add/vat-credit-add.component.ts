@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
-import {BrowserModule} from "@angular/platform-browser";
 import {WebcamImage, WebcamInitError, WebcamModule} from "ngx-webcam";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {VatCreditService} from "../vat-credit.service";
 
 
 @Component({
@@ -15,6 +15,15 @@ import {CommonModule} from "@angular/common";
   styleUrl: './vat-credit-add.component.css'
 })
 export class VatCreditAddComponent {
+
+  constructor(private vatCreditService: VatCreditService) {}
+
+  formData = { picture: '',
+    price: '',
+    date: '',
+    category: '',
+    categoryExplanation: '' };
+
 
   capturedImage: WebcamImage | undefined;
 
@@ -36,5 +45,16 @@ export class VatCreditAddComponent {
       console.log('Captured Image:', this.capturedImage);
       // You can send the captured image to your server or process it further
     }
+
+    this.vatCreditService.createVatCredit(this.formData).subscribe(
+      (response) => {
+        console.log('Form data sent successfully:', response);
+        // Handle the response from the server if needed
+      },
+      (error) => {
+        console.error('Error sending form data:', error);
+        // Handle errors if needed
+      }
+    );
   }
 }
