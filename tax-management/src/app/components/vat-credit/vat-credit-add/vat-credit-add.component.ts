@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
-import {WebcamImage, WebcamInitError, WebcamModule} from "ngx-webcam";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {VatCreditService} from "../vat-credit.service";
 
@@ -10,43 +9,44 @@ import {VatCreditService} from "../vat-credit.service";
 @Component({
   selector: 'app-vat-credit-add',
   standalone: true,
-  imports: [MatIconModule, HttpClientModule, FormsModule, WebcamModule, CommonModule],
+  imports: [MatIconModule, HttpClientModule, FormsModule, CommonModule, ReactiveFormsModule ],
   templateUrl: './vat-credit-add.component.html',
-  styleUrl: './vat-credit-add.component.css'
+  styleUrl: './vat-credit-add.component.css',
+  providers:  [ VatCreditService ]
 })
 export class VatCreditAddComponent {
+  form: FormGroup;
 
-  constructor(private vatCreditService: VatCreditService) {}
-
-  formData = { picture: '',
-    price: '',
-    date: '',
-    category: '',
-    categoryExplanation: '' };
-
-
-  capturedImage: WebcamImage | undefined;
-
-  handleImageCapture(webcamImage: WebcamImage) {
-    this.capturedImage = webcamImage;
+  constructor(private fb: FormBuilder, private vatCreditService: VatCreditService) {   
+    this.form = this.fb.group({
+      price: [0],
+      date: [""],
+      category: [""
+      ],
+      categoryExplanation: [""],
+      fileInput: [null]
+    });
   }
 
-  handleCameraSwitch(event: any) {
-    // Handle camera switch event if needed
-  }
-
-  handleInitError(error: WebcamInitError) {
-    console.error('Error initializing webcam:', error);
-  }
+  listOptions = [
+    { name: "ESSENCE" },
+    { name: "ELECTRICITE" },
+    { name: "REPAS" },
+    { name: "INTERNET" },
+    { name: "TELEPHONE" },
+    { name: "AUTRE" }
+  ];
 
   onSubmit() {
-    // Handle form submission with the captured image here
-    if (this.capturedImage) {
-      console.log('Captured Image:', this.capturedImage);
-      // You can send the captured image to your server or process it further
-    }
+    
+    const formData = new FormData();
+    formData.append('price', this.form.value.price);
+    formData.append('date', this.form.value.date);
+    formData.append('categorytOptions', this.form.value.categorytOptions);
+    formData.append('categoryExplanation', this.form.value.categoryExplanation);
+    formData.append('file', this.form.value.fileInput);
 
-    this.vatCreditService.createVatCredit(this.formData).subscribe(
+    this.vatCreditService.createVatCredit(formData).subscribe(
       (response) => {
         console.log('Form data sent successfully:', response);
         // Handle the response from the server if needed

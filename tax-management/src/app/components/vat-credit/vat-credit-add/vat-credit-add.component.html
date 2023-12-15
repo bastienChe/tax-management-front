@@ -7,54 +7,35 @@
           Take a Picture
         </div>
         <div class="card-body">
-          <!-- Camera -->
-          <webcam
-            [height]="320"
-            [width]="240"
-            (imageCapture)="handleImageCapture($event)"
-            (cameraSwitched)="handleCameraSwitch($event)"
-            (initError)="handleInitError($event)"
-          ></webcam>
-          <!-- Form -->
 
-          <form (ngSubmit)="onSubmit()" #form="ngForm">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group mt-3">
               <label for="picture">Captured Image:</label>
-              <img
-                *ngIf="capturedImage"
-                [src]="capturedImage.imageAsDataUrl"
-                alt="Captured Image"
-                class="img-fluid"
-                id="picture"
-              />
+              <input type="file" accept="image/*" capture="camera" id="fileInput" formControlName="fileInput">
+              <div id="result"></div>
             </div>
 
             <div class="form-group mt-3">
               <label for="price">Price:</label>
-              <input type="number" id="price" />
+              <input type="number" id="price" formControlName="price"/>
             </div>
 
             <div class="form-group mt-3">
               <label for="date">Date:</label>
-              <input type="date" id="date" />
+              <input type="date" id="date" formControlName="date" />
             </div>
 
             <div class="form-group mt-3">
               <label for="category">Category:</label>
-              <select id="category">
-                <option></option>
-                <option value="ESSENCE">ESSENCE</option>
-                <option value="ELECTRICITE">ELECTRICITE</option>
-                <option value="REPAS">REPAS</option>
-                <option value="INTERNET">INTERNET</option>
-                <option value="TELEPHONE">TELEPHONE</option>
-                <option value="AUTRE">AUTRE</option>
+              <select id="category" formControlName="category">
+                <option></option>    
+                <option *ngFor="let oneOption of listOptions" value="oneOption.name">{{oneOption.name}}</option>
               </select>
             </div>
 
             <div class="form-group mt-3">
               <label for="categoryExplanation">Category Explanation:</label>
-              <input type="text" value="categoryExplanation"/>
+              <input type="text" value="categoryExplanation" formControlName="categoryExplanation"/>
             </div>
 
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
