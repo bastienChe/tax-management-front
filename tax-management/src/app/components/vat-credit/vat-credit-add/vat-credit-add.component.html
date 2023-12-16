@@ -11,7 +11,7 @@
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group mt-3">
               <label for="picture">Captured Image:</label>
-              <input type="file" accept="image/*" capture="camera" id="fileInput" formControlName="fileInput">
+              <input type="file" accept="image/*" capture="camera" id="fileInput" (change)="onFileChange($event)" formControlName="fileInput">
               <div id="result"></div>
             </div>
 
@@ -29,7 +29,7 @@
               <label for="category">Category:</label>
               <select id="category" formControlName="category">
                 <option></option>    
-                <option *ngFor="let oneOption of listOptions" value="oneOption.name">{{oneOption.name}}</option>
+                <option *ngFor="let categoryOption of categoryOptions" value={{categoryOption.name}}>{{categoryOption.name}}</option>
               </select>
             </div>
 
