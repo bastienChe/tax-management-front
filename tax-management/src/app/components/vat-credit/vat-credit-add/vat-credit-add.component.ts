@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
-import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {VatCreditService} from "../vat-credit.service";
 
@@ -12,11 +12,19 @@ import {VatCreditService} from "../vat-credit.service";
   imports: [MatIconModule, HttpClientModule, FormsModule, CommonModule, ReactiveFormsModule ],
   templateUrl: './vat-credit-add.component.html',
   styleUrl: './vat-credit-add.component.css',
-  providers:  [ VatCreditService ]
+  providers: [VatCreditService]
 })
 export class VatCreditAddComponent {
   form: FormGroup;
   fileUploaded: File;
+  categoryOptions = [
+    { name: "ESSENCE" },
+    { name: "ELECTRICITE" },
+    { name: "REPAS" },
+    { name: "INTERNET" },
+    { name: "TELEPHONE" },
+    { name: "AUTRE" }
+  ];
 
   constructor(private fb: FormBuilder, private vatCreditService: VatCreditService) {   
     this.form = this.fb.group({
@@ -28,25 +36,14 @@ export class VatCreditAddComponent {
     });
   }
 
-
   onFileChange(event: any): void {
     const file:File = event.target.files[0];
     if (file) {
       this.fileUploaded = file;
     }
   }
-  
-  categoryOptions = [
-    { name: "ESSENCE" },
-    { name: "ELECTRICITE" },
-    { name: "REPAS" },
-    { name: "INTERNET" },
-    { name: "TELEPHONE" },
-    { name: "AUTRE" }
-  ];
 
   onSubmit() {
-    
     const formData = new FormData();
     formData.append('price', this.form.value.price);
     formData.append('date', this.form.value.date);

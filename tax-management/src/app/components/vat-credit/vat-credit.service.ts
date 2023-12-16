@@ -6,14 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VatCreditService {
-
-  private URL_VAT_CREDIT_ADD = 'http://localhost:8080/api/vat-credit'; // Replace with your API endpoint
+  private URL_VAT_CREDIT_API = 'http://localhost:8080/api/vat-credit'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) {}
 
   createVatCredit(formData: FormData): Observable<any> {
     console.log(formData);
-    return this.http.post(this.URL_VAT_CREDIT_ADD, formData);
+    return this.http.post(this.URL_VAT_CREDIT_API, formData);
+  }
+  
+  getDataById(id: string) {
+    return this.http.get(this.URL_VAT_CREDIT_API+"/"+id);
   }
 
 }
