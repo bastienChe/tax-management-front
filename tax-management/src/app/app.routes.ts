@@ -11,16 +11,16 @@ export const routes: Routes = [
     component: LandingComponent
   },
   {
-    path: 'vat-credit-add',
-    component: VatCreditAddComponent
-  },
-  {
     path: 'vat-credit',
     component: VatCreditListComponent
   },
   {
     path: 'vat-credit/:id',
     component: VatCreditDetailComponent
+  },
+  {
+    path: 'vat-credit-add',
+    component: VatCreditAddComponent
   },
   {
     path: 'vat-credit-for-month',

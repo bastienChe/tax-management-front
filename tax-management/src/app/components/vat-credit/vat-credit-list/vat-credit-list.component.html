@@ -1,1 +1,24 @@
-<p>vat-credit-list works!</p>
+<p>Mois de {{moisCourant}}</p>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Catégorie Expl</th>
+        <th scope="col">Détail</th>
+      </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let vatCredit of vatCredits">
+            <tr>
+                <td>{{vatCredit.date}}</td>
+                <td>{{vatCredit.price}}</td>
+                <td>{{vatCredit.category}}</td>
+                <td>{{vatCredit.categoryExplanation}}</td>
+                <td>V</td>
+            </tr>
+        </ng-container>
+    </tbody>
+  </table>
