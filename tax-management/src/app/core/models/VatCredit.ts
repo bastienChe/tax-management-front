@@ -3,7 +3,7 @@ export interface VatCredit {
     date: Date,
     category: VatCreditCategory,
     categoryExplanation: string,
-    fileInput: File
+    picture: File
 }
 
 export enum VatCreditCategory {
