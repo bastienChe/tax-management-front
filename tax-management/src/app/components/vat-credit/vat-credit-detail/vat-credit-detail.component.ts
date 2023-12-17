@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VatCredit } from '../../../core/models/VatCredit';
 import { VatCreditService } from '../vat-credit.service';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vat-credit-detail',

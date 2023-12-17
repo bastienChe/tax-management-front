@@ -1,4 +1,5 @@
 export interface VatCredit {
+    idVatCredit: number,
     price: number,
     date: Date,
     category: VatCreditCategory,

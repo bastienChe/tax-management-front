@@ -3,6 +3,7 @@
 <table class="table">
     <thead>
       <tr>
+        <th scope="col">Id</th>
         <th scope="col">Date</th>
         <th scope="col">Prix</th>
         <th scope="col">Catégorie</th>
@@ -13,11 +14,12 @@
     <tbody>
         <ng-container *ngFor="let vatCredit of vatCredits">
             <tr>
+                <td>{{vatCredit.idVatCredit}}</td>
                 <td>{{vatCredit.date}}</td>
                 <td>{{vatCredit.price}}</td>
                 <td>{{vatCredit.category}}</td>
                 <td>{{vatCredit.categoryExplanation}}</td>
-                <td>V</td>
+                <td><a [routerLink]="[vatCredit.idVatCredit]"> detail </a></td>
             </tr>
         </ng-container>
     </tbody>
