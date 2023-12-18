@@ -1,47 +1,37 @@
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          Take a Picture
-        </div>
-        <div class="card-body">
+<form style="margin-top:15px">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group mt-3">
-              <label for="picture">Captured Image:</label>
-              <input type="file" accept="image/*" capture="camera" id="fileInput" (change)="onFileChange($event)" formControlName="fileInput">
-              <div id="result"></div>
-            </div>
-
-            <div class="form-group mt-3">
-              <label for="price">Price:</label>
-              <input type="number" id="price" formControlName="price"/>
-            </div>
-
-            <div class="form-group mt-3">
-              <label for="date">Date:</label>
-              <input type="date" id="date" formControlName="date" />
-            </div>
-
-            <div class="form-group mt-3">
-              <label for="category">Category:</label>
-              <select id="category" formControlName="category">
-                <option></option>    
-                <option *ngFor="let categoryOption of categoryOptions" value={{categoryOption.name}}>{{categoryOption.name}}</option>
-              </select>
-            </div>
-
-            <div class="form-group mt-3">
-              <label for="categoryExplanation">Category Explanation:</label>
-              <input type="text" value="categoryExplanation" formControlName="categoryExplanation"/>
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <label for="picture">Captured Image:</label>
+    <input type="file" accept="image/*" capture="camera" id="fileInput" class="form-control" (change)="onFileChange($event)" formControlName="fileInput" required>
+    <div id="result"></div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input type="number" id="price" class="form-control" formControlName="price" required/>
   </div>
+  <div class="form-group">
+    <label for="date">Date:</label>
+    <input type="date" [(ngModel)]="fromDate" id="date" class="form-control" formControlName="date" required/>
+  </div>
+
+  <div #category class="form-group ">
+    <label for="category">Category:</label>
+    <select id="category" class="form-control" formControlName="category" required>
+      <option disabled selected value=""></option>    
+      <option *ngFor="let categoryOption of categoryOptions" value={{categoryOption.name}}>{{categoryOption.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group" *ngIf="form.value.category === 'AUTRE'">
+    <label for="categoryExplanation">Category Explanation:</label>
+    <input type="text" class="form-control" value="categoryExplanation" formControlName="categoryExplanation"/>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div id="alert" class="alert fade hide" role="alert">
+  VAT Credit was sent successfully
+</div>
+<div id="alert" class="alert fade hide" role="alert">
+  There was a problem while sending VAT Credit. Please try again
 </div>

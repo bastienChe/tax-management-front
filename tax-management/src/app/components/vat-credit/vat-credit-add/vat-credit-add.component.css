@@ -1,3 +1,9 @@
 .file-input {
   display: none;
 }
+.form-group {
+  margin-top:15px;
+}
+.required-field {
+  border-color: #d70505
+}
