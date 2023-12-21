@@ -15,13 +15,13 @@ export class VatCreditService {
     console.log(formData);
     return this.http.post(this.URL_VAT_CREDIT_API, formData);
   }
-  
+
   getDataById(id: string) : Observable<VatCredit>{
     return this.http.get<VatCredit>(this.URL_VAT_CREDIT_API+"/"+id);
   }
-  
-  getData() : Observable<VatCredit[]>{
-    return this.http.get<VatCredit[]>(this.URL_VAT_CREDIT_API);
+
+  getData(dateStart: string, dateEnd: string) : Observable<VatCredit[]>{
+    return this.http.get<VatCredit[]>(this.URL_VAT_CREDIT_API+"/date-between?dateStart="+dateStart+"&dateEnd="+dateEnd);
   }
 
 }
